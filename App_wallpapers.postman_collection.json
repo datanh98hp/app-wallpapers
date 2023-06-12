@@ -1,0 +1,526 @@
+{
+	"info": {
+		"_postman_id": "4f3201ab-817e-4c19-91c4-c50e3b03535b",
+		"name": "App_wallpapers",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "9150708"
+	},
+	"item": [
+		{
+			"name": "{{localhost}}/anonymous",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{localhost}}/anonymous",
+					"host": [
+						"{{localhost}}"
+					],
+					"path": [
+						"anonymous"
+					]
+				},
+				"description": "Get list anonymous login session"
+			},
+			"response": []
+		},
+		{
+			"name": "{{hosting}}/anonymous",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"device_code\":\"asc-ahava-uhvwq\",\r\n    \"name\":\"iphone XSM\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{hosting}}/anonymous",
+					"host": [
+						"{{hosting}}"
+					],
+					"path": [
+						"anonymous"
+					]
+				},
+				"description": "Login anonymos"
+			},
+			"response": []
+		},
+		{
+			"name": "{{hosting}}/anonymous/1",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{hosting}}/anonymous-by-device/asc-ahava-uhvwq",
+					"host": [
+						"{{hosting}}"
+					],
+					"path": [
+						"anonymous-by-device",
+						"asc-ahava-uhvwq"
+					]
+				},
+				"description": "Search anonymous user by device_code"
+			},
+			"response": []
+		},
+		{
+			"name": "{{hosting}}/anonymous/1",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{hosting}}/anonymous/1",
+					"host": [
+						"{{hosting}}"
+					],
+					"path": [
+						"anonymous",
+						"1"
+					]
+				},
+				"description": "get anonymous user by id"
+			},
+			"response": []
+		},
+		{
+			"name": "{{hosting}}/images",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{hosting}}/images",
+					"host": [
+						"{{hosting}}"
+					],
+					"path": [
+						"images"
+					]
+				},
+				"description": "Get all images\r\n"
+			},
+			"response": []
+		},
+		{
+			"name": "{{hosting}}/wallpapers",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{hosting}}/wallpapers",
+					"host": [
+						"{{hosting}}"
+					],
+					"path": [
+						"wallpapers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "{{localhost}}/wallpaper-latest",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{hosting}}/wallpaper-latest",
+					"host": [
+						"{{hosting}}"
+					],
+					"path": [
+						"wallpaper-latest"
+					]
+				},
+				"description": "get latest wallpaper list"
+			},
+			"response": []
+		},
+		{
+			"name": "{{hosting}}/contacts",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\":\"test\",\r\n    \"content\":\"iasdisdhnklscnklsdfjl kjl sf jkl aw\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{hosting}}/contacts",
+					"host": [
+						"{{hosting}}"
+					],
+					"path": [
+						"contacts"
+					]
+				},
+				"description": "Get all contact infor"
+			},
+			"response": []
+		},
+		{
+			"name": "{{localhost}}/contacts",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\":\"test sfdggs\",\r\n    \"content\":\"iasdisdhnklscnklsdfjl kjl sf jkl aw\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{localhost}}/contact/1",
+					"host": [
+						"{{localhost}}"
+					],
+					"path": [
+						"contact",
+						"1"
+					]
+				},
+				"description": "add new contact infor"
+			},
+			"response": []
+		},
+		{
+			"name": "{{localhost}}/contact/1",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\":\"test sfdggs\",\r\n    \"content\":\"iasdisdhnklscnklsdfjl kjl sf jkl aw\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{localhost}}/contact/1",
+					"host": [
+						"{{localhost}}"
+					],
+					"path": [
+						"contact",
+						"1"
+					]
+				},
+				"description": "update contact infor"
+			},
+			"response": []
+		},
+		{
+			"name": "{{localhost}}/contact/2",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{localhost}}/contact/2",
+					"host": [
+						"{{localhost}}"
+					],
+					"path": [
+						"contact",
+						"2"
+					]
+				},
+				"description": "delete conact infor"
+			},
+			"response": []
+		},
+		{
+			"name": "{{hosting}}/wallpapers",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{hosting}}/wallpapers",
+					"host": [
+						"{{hosting}}"
+					],
+					"path": [
+						"wallpapers"
+					]
+				},
+				"description": "get all wallpapers"
+			},
+			"response": []
+		},
+		{
+			"name": "{{hosting}}/wallpapers",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "src",
+							"type": "file",
+							"src": "/C:/Users/Admin/Downloads/OIP.jpg"
+						},
+						{
+							"key": "name",
+							"value": "Test",
+							"type": "text"
+						},
+						{
+							"key": "category_id",
+							"value": "1",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{hosting}}/wallpapers",
+					"host": [
+						"{{hosting}}"
+					],
+					"path": [
+						"wallpapers"
+					]
+				},
+				"description": "Add new wallpapers"
+			},
+			"response": []
+		},
+		{
+			"name": "{{hosting}}/wallpaper/3",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{hosting}}/wallpaper/3",
+					"host": [
+						"{{hosting}}"
+					],
+					"path": [
+						"wallpaper",
+						"3"
+					]
+				},
+				"description": "get single wallpaper by id"
+			},
+			"response": []
+		},
+		{
+			"name": "{{hosting}}/wallpaper-search/hnf",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{hosting}}/wallpaper-search/hnf",
+					"host": [
+						"{{hosting}}"
+					],
+					"path": [
+						"wallpaper-search",
+						"hnf"
+					]
+				},
+				"description": "Search by name"
+			},
+			"response": []
+		},
+		{
+			"name": "{{hosting}}/user-like-wallpaper/3",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"anonymous_id\":1\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{hosting}}/user-like-wallpaper/3",
+					"host": [
+						"{{hosting}}"
+					],
+					"path": [
+						"user-like-wallpaper",
+						"3"
+					]
+				},
+				"description": "user action like a wallpaper"
+			},
+			"response": []
+		},
+		{
+			"name": "{{hosting}}/wallpaper/3",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{hosting}}/wallpaper/3",
+					"host": [
+						"{{hosting}}"
+					],
+					"path": [
+						"wallpaper",
+						"3"
+					]
+				},
+				"description": "delete a wallpaper by id"
+			},
+			"response": []
+		},
+		{
+			"name": "{{hosting}}/wallpaper-search/test",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{hosting}}/wallpaper-search/test",
+					"host": [
+						"{{hosting}}"
+					],
+					"path": [
+						"wallpaper-search",
+						"test"
+					]
+				},
+				"description": "search by name"
+			},
+			"response": []
+		},
+		{
+			"name": "{{hosting}}/contacts",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{hosting}}/contacts",
+					"host": [
+						"{{hosting}}"
+					],
+					"path": [
+						"contacts"
+					]
+				},
+				"description": "get list contact infor application"
+			},
+			"response": []
+		},
+		{
+			"name": "{{hosting}}/contacts",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\":\"ashsnkldfj\",\r\n    \"content\":\"demo content\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{hosting}}/contacts",
+					"host": [
+						"{{hosting}}"
+					],
+					"path": [
+						"contacts"
+					]
+				},
+				"description": "add new infor contact"
+			},
+			"response": []
+		},
+		{
+			"name": "{{hosting}}/contact/1",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{hosting}}/contact/1",
+					"host": [
+						"{{hosting}}"
+					],
+					"path": [
+						"contact",
+						"1"
+					]
+				},
+				"description": "delelte contact infor"
+			},
+			"response": []
+		},
+		{
+			"name": "{{localhost}}/wallpaper-category/1",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{localhost}}/wallpaper-category/1",
+					"host": [
+						"{{localhost}}"
+					],
+					"path": [
+						"wallpaper-category",
+						"1"
+					]
+				},
+				"description": "get item by id_category"
+			},
+			"response": []
+		},
+		{
+			"name": "{{hosting}}/user-like-wallpapers/1",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{hosting}}/user-like-wallpapers/1",
+					"host": [
+						"{{hosting}}"
+					],
+					"path": [
+						"user-like-wallpapers",
+						"1"
+					]
+				},
+				"description": "get list wallpaper that is liked"
+			},
+			"response": []
+		}
+	]
+}
