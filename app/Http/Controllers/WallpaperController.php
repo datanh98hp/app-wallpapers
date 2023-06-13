@@ -17,10 +17,12 @@ class WallpaperController extends Controller
         $commons = Wallpaper::orderBy('id', 'desc')->orderBy('created_at', 'desc')->get();
         return response()->json([
            'status' => 'success',
+           'statusCode' => '200',
            'result'=> [
                 'data'=>$list,
                 'commons'=>$commons
-           ]
+           ],
+           //"check"=>asset($commons[0]->src)
         ]);
        
     }
@@ -29,6 +31,7 @@ class WallpaperController extends Controller
         $list = Wallpaper::latest()->paginate(5);
 
         return response()->json([
+            'statusCode' => '200',
             'status' => 'success',
             'result'=> $list
          ]);
@@ -37,6 +40,7 @@ class WallpaperController extends Controller
     {
         $list = Wallpaper::where('category_id',$id_category)->paginate(5);
         return response()->json([
+            'statusCode' => '200',
             'status' => 'success',
             'result'=> $list
          ]);
@@ -45,6 +49,7 @@ class WallpaperController extends Controller
     {
         $list = Wallpaper::orderBy('id', 'desc')->orderBy('created_at', 'desc')->paginate(10);
         return response()->json([
+            'statusCode' => '200',
             'status' => 'success',
             'result'=> $list
          ]);
@@ -55,6 +60,7 @@ class WallpaperController extends Controller
         $list = Wallpaper::where('name',trim($name))->orderBy('name', 'desc')->orderBy('created_at', 'desc')->paginate(10);
 
         return response()->json([
+            'statusCode' => '200',
             'status' => 'success',
             'result'=> $list
          ]);
@@ -101,16 +107,19 @@ class WallpaperController extends Controller
                 if ($result) {
                     return [
                         "status"=>"success",
+                        'statusCode' => '200',
                         "result" => "Data has been save !"
                     ];
                 } else {
                     return [
+                        'statusCode' => '500',
                         "result" => "Operation Failed !"
                     ];
                 }
             } catch (\Throwable $th) {
                 //throw $th;
                 return response()->json([
+                    'statusCode' => '400',
                     'status'=>'error',
                     'error'=>$th
                 ]);
@@ -128,6 +137,7 @@ class WallpaperController extends Controller
     {
         $item = Wallpaper::find($id);
          return response()->json([
+            'statusCode' => '200',
             'status' => 'success',
             'result'=> $item 
          ]);
@@ -174,17 +184,20 @@ class WallpaperController extends Controller
 
             if ($result) {
                 return [
+                    'statusCode' => '200',
                     "status"=>"success",
                     "result" => "Data has been update !"
                 ];
             } else {
                 return [
+                    'statusCode' => '500',
                     "result" => "Operation Failed !"
                 ];
             }
         } catch (\Throwable $th) {
             //throw $th;
             return response()->json([
+                'statusCode' => '400',
                 'status'=>'error',
                 'error'=>$th
             ]);
@@ -199,6 +212,7 @@ class WallpaperController extends Controller
         $item->save();
 
         return response()->json([
+            'statusCode' => '200',
             'status' => 'success',
             'result'=> $item 
          ]);
@@ -210,6 +224,7 @@ class WallpaperController extends Controller
         $list = Wallpaper::where('anonymous_id',$anonymous_id)->paginate(10);
       
         return response()->json([
+            'statusCode' => '200',
            'status' => 'success',
            'result'=> [
                 'data'=>$list,
@@ -217,6 +232,7 @@ class WallpaperController extends Controller
         ]);
         } catch (\Throwable $th) {
             return response()->json([
+                'statusCode' => '400',
                 'status'=>'error',
                 'error'=>$th
             ]);
@@ -237,6 +253,7 @@ class WallpaperController extends Controller
             $delete->delete();
             
             return response()->json([
+                'statusCode' => '200',
                 'status'=>'success',
                 'data'=>[
                     'msg'=>'Deleted'
@@ -244,6 +261,7 @@ class WallpaperController extends Controller
             ]);
         } catch (\Throwable $th) {
             return response()->json([
+                'statusCode' => '400',
                 'status'=>'error',
                 'error'=>$th
             ]);
