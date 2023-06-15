@@ -41,6 +41,9 @@
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="../assets/js/config.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css" />
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
 </head>
 
 <body>
@@ -489,18 +492,18 @@
                                     <li>
                                         <a class="dropdown-item" href="#">
                                             <i class="bx bx-user me-2"></i>
-                                            <span class="align-middle">{{Auth::user()->name}}</span>
+                                            <span class="align-middle">{{ Auth::user()->name }}</span>
                                         </a>
                                     </li>
-                                    
+
                                     <li>
                                         <div class="dropdown-divider"></div>
                                     </li>
-                                    
+
                                     <li>
                                         <a class="dropdown-item" href="{{ route('signout') }}">
                                             <i class="bx bx-power-off me-2"></i>
-                                            <span class="align-middle" >Log Out</span>
+                                            <span class="align-middle">Log Out</span>
                                         </a>
                                     </li>
 

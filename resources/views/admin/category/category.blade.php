@@ -9,14 +9,14 @@
         @endif
         <div class="row">
             <!-- Basic -->
-            <div class="col-md-6 mb-4">
+            <div class="col-md-7 mb-4">
                 <div class="card">
                     <h5 class="card-header">List categories</h5>
                     <div class="card-body">
                         <div class="divider">
                             {{-- <div class="divider-text">Text</div> --}}
-                            <div class="table-responsive text-nowrap">
-                                <table class="table-responsive text-nowrap" id="list-categories" style="width:100%">
+                            <div class="table-responsive">
+                                <table class="table-responsive text-nowrap ui celled table dataTable no-footer" id="list-categories" style="width:100%">
                                     <thead>
                                         <tr>
                                             <th>#STT</th>
@@ -143,7 +143,7 @@
                 </div>
             </div>
             <!-- /Basic -->
-            <div class="col-md-6 mb-4">
+            <div class="col-md-5 mb-4">
                 <div class="card">
                     <h5 class="card-header">Add new</h5>
                     <div class="card-body">
@@ -189,7 +189,7 @@
         </div>
     </div>
     <script>
-        // delete
+       
         $('#list-categories').DataTable({
             language: {
                 url: 'https://cdn.datatables.net/plug-ins/1.13.4/i18n/vi.json',
