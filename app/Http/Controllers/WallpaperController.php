@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\Wallpaper;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-
+use Illuminate\Support\Facades\Storage;
 
 class WallpaperController extends Controller
 {
@@ -66,7 +66,32 @@ class WallpaperController extends Controller
          ]);
         
     }
-   
+    public function getWallpaperBySameCategory($id)
+    {
+        try {
+            $item = Wallpaper::find($id);
+            $id_cate = $item->category_id;
+    
+            $list = Wallpaper::where('category_id',$id_cate)->whereNot('id',$id)->orderBy('name', 'desc')->orderBy('created_at', 'desc')->paginate(10);
+    
+            return response()->json([
+                'statusCode' => '200',
+                'status' => 'success',
+                'result'=> [
+                    "data_same"=>$list,
+                    "current"=>$item
+                ]
+             ]);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'statusCode' => '400',
+                'status'=>'error',
+                'error'=>$th
+            ]);
+        }
+        
+        
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -175,12 +200,16 @@ class WallpaperController extends Controller
     }else {
         try {
                 //code...
-            $new = Wallpaper::find($id);
+            $item = Wallpaper::find($id);
+
+            $oldFIle = $item->src;
+            Storage::delete($oldFIle);
+
             $path =$request->file('src')->store('wallpapers');
-            $new->src = $path;
-            $new->name = $request->name;
-            $new->category_id = $request->category_id;
-            $result = $new->save();
+            $item->src = $path;
+            $item->name = $request->name;
+            $item->category_id = $request->category_id;
+            $result = $item->save();
 
             if ($result) {
                 return [
@@ -249,7 +278,7 @@ class WallpaperController extends Controller
         //
         try {
             $delete = Wallpaper::find($id);
-            //Storage::delete([$delete->src]);
+            Storage::delete([$delete->src]);
             $delete->delete();
             
             return response()->json([
