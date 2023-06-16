@@ -119,7 +119,7 @@ Route::delete('image/{id}', [UploadImageController::class, 'destroy']);
 
 Route::get('wallpapers', [WallpaperController::class, 'index']);
 Route::post('wallpapers', [WallpaperController::class, 'store']);
-Route::get('wallpaper/{id}', [WallpaperController::class, 'show']);
+Route::get('wallpaper/{id}/{anonymous_id}', [WallpaperController::class, 'show']);
 Route::put('wallpaper/{id}', [WallpaperController::class, 'update']);
 Route::delete('wallpaper/{id}', [WallpaperController::class, 'destroy']);
 

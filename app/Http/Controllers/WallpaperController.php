@@ -5,6 +5,7 @@ use App\Models\Wallpaper;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
+use App\Models\UserLikeWallpaper;
 
 class WallpaperController extends Controller
 {
@@ -13,8 +14,8 @@ class WallpaperController extends Controller
     {
         //all wallpapers
 
-        $list = Wallpaper::paginate(5);
-        $commons = Wallpaper::orderBy('id', 'desc')->orderBy('created_at', 'desc')->take(10);
+        $list = Wallpaper::orderBy('id', 'desc')->paginate(10);
+        $commons = Wallpaper::orderBy('id', 'asc')->orderBy('created_at', 'asc')->take(10)->get();
         return response()->json([
            'status' => 'success',
            'statusCode' => 200,
@@ -22,7 +23,7 @@ class WallpaperController extends Controller
                 'data'=>$list,
                 'commons'=>$commons
            ],
-           //"check"=>asset($commons[0]->src)
+           "path"=>"https://wallpaper.chatx.live/wallpapers/storage/app/",
         ]);
        
     }
@@ -38,16 +39,16 @@ class WallpaperController extends Controller
     }
     public function getWallpaperbyCategory($id_category)
     {
-        $list = Wallpaper::where('category_id',$id_category)->paginate(5);
+        $list = Wallpaper::where('category_id',$id_category)->paginate(10);
         return response()->json([
-            'statusCode' => '200',
+            'statusCode' => 200,
             'status' => 'success',
             'result'=> $list
          ]);
     }
     public function getWallpaperCommon()
     {
-        $list = Wallpaper::orderBy('id', 'desc')->orderBy('created_at', 'desc')->paginate(10);
+        $list = Wallpaper::orderBy('id', 'asc')->orderBy('created_at', 'asc')->paginate(10);
         return response()->json([
             'statusCode' => 200,
             'status' => 'success',
@@ -57,7 +58,7 @@ class WallpaperController extends Controller
     }
     public function getWallpaperByName($name)
     {
-        $list = Wallpaper::where('name',trim($name))->orderBy('name', 'desc')->orderBy('created_at', 'desc')->paginate(10);
+        $list = Wallpaper::where('name','like','%'.trim($name).'%')->orderBy('name', 'desc')->orderBy('created_at', 'desc')->paginate(10);
 
         return response()->json([
             'statusCode' => 200,
@@ -158,12 +159,22 @@ class WallpaperController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id,$anonymous_id)
     {
+           
         $item = Wallpaper::find($id);
+        
+        $checkLike = UserLikeWallpaper::where('anonymous_id',$anonymous_id)
+                                    ->where('wallpaper_id',$id)->first();
+        $isLike= false;
+        
+        if($checkLike!==null){
+            $isLike= true;
+        }
          return response()->json([
             'statusCode' => 200,
             'status' => 'success',
+            'isLike'=>$isLike,
             'result'=> $item 
          ]);
     }
