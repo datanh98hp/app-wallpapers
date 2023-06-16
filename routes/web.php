@@ -31,7 +31,7 @@ Route::get('/welcome', function () {
 });
 
 Route::get('/', function () {
-    return view('admin.dashboard');
+    return redirect('/login');
 });
 
 Route::middleware(['auth'])->group(function () {
