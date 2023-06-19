@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('sex');
             $table->string('verify_code');
+            $table->string('access_time')->nullable();
             $table->string('dateOfBirth');
             $table->timestamps();
         });

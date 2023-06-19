@@ -100,11 +100,11 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
 Route::get('products', [ProductController::class, 'index']);
 Route::get('product/{id}', [ProductController::class, 'show']);
 
-Route::group(['middleware' => 'auth:sanctum'], function () {
+// Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::post('products', [ProductController::class, 'store']);
     Route::put('product/{id}', [ProductController::class, 'update']);
     Route::delete('product/{id}', [ProductController::class, 'destroy']);
-});
+// });
 
 // upload single image for other app
 Route::get('images', [UploadImageController::class, 'index']);
@@ -119,7 +119,7 @@ Route::delete('image/{id}', [UploadImageController::class, 'destroy']);
 
 Route::get('wallpapers', [WallpaperController::class, 'index']);
 Route::post('wallpapers', [WallpaperController::class, 'store']);
-Route::get('wallpaper/{id}', [WallpaperController::class, 'show']);
+Route::get('wallpaper/{id}/{anonymous_id}', [WallpaperController::class, 'show']);
 Route::put('wallpaper/{id}', [WallpaperController::class, 'update']);
 Route::delete('wallpaper/{id}', [WallpaperController::class, 'destroy']);
 
@@ -130,7 +130,7 @@ Route::get('wallpaper-category/{id_category}', [WallpaperController::class, 'get
 
 Route::get('wallpaper-latest', [WallpaperController::class, 'getWallpaperLatest']);
 Route::get('wallpaper-common', [WallpaperController::class, 'getWallpaperCommon']);
-Route::post('user-like-wallpaper/{id}', [WallpaperController::class, 'user_like_wallpaper']);
+Route::post('user-like-wallpaper/{id}',[WallpaperController::class, 'user_like_wallpaper']);
 
 Route::get('user-like-wallpapers/{anonymous_id}', [WallpaperController::class, 'list_wallpaper_liked']); // //list wallpaper user liked
 

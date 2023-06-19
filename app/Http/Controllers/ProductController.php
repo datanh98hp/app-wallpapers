@@ -47,7 +47,7 @@ class ProductController extends Controller
         //
         $rules = array(
             'name' => 'required|min:6|max:18',
-            'age' => 'required|max:18',
+            'age' => 'required',
             'country' => 'required',
             'video_src' => 'required|mimes:mp4,ogx,oga,ogv,ogg,webm|max:30000',
             'category_id' => 'required',
@@ -77,7 +77,7 @@ class ProductController extends Controller
                     if ($request->has('video_src')) {
                         $new->video_src = $path;
                     }
-                    $new->category_id = $request->category_id;
+                    $new->category_id = $request->category_id; // 1: girls
                     $new->description = $request->description;
                     $result = $new->save();
                     if ($request->has('image')) {
@@ -122,7 +122,9 @@ class ProductController extends Controller
         try {
             //code...
             $item = Product::find($id);
-
+            $item->view_count = $item->view_count + 1;
+            $item->save();
+            
             return response()->json([
                 'status' => 'success',
                 'result' => $item
@@ -183,8 +185,8 @@ class ProductController extends Controller
                 $update->country = $request->country;
                 if ($request->has('video_src')) {
                     //delete old file
-
-                    // Storage::delete([]);
+                    Storage::delete([$update->video_src]);
+                    //
                     $path = $request->file('video_src')->store('video');
                     $update->video_src = $path;
                 }
@@ -270,7 +272,6 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-
         // remove product   
         try {
             //code...

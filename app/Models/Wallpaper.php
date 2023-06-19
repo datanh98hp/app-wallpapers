@@ -23,7 +23,8 @@ class Wallpaper extends Model
     {
         return $this->hasOne(Category::class);
     }
-    public function user_like(){
-        return $this->hasOne(User::class);
+    public function users_like_wallpaper(){
+        return $this->morphToMany(User::class, 'user_like_wallpaper');
     }
+
 }

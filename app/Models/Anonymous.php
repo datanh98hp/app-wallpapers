@@ -18,10 +18,11 @@ class Anonymous extends Model
         'sex',
         'verify_code',
         'dateOfBirth',
+        'dateOfBirth',
     ];
 
     public function wallpaper_likes()
     {
-        return $this->hasMany(Wallpaper::class);
+        return $this->hasMany(UserLikeWallpaper::class);
     }
 }

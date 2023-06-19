@@ -21,7 +21,9 @@ return new class extends Migration
             $table->string('video_src');
             $table->unsignedBigInteger('category_id');
             $table->foreign('category_id')->references('id')->on('category');
+            
             $table->string('description');
+            $table->integer('view_count')->nullable();
             $table->timestamps();
         });
     }

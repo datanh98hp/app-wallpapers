@@ -27,25 +27,40 @@ class AnonymousController extends Controller
         $rules = array(
             "device_code" => "required",
             "name" => "required",
-            // "sex"=>"required",
-            // "dateOfBirth"=>"required"
+            "sex"=>"required",
+            "dateOfBirth"=>"required"
         );
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails()) {
             return $validator->errors();
         } else {
+            //find
+            $check = Anonymous::where('device_code',$request->device_code)->first();
+            if($check==null){  
             //ccreate new
             $new = Anonymous::create([
                 'device_code' => $request->device_code,
                 'name' => $request->name,
-                // 'sex' => $request->sex,
+                'sex' => $request->sex,
                 'verify_code' => Str::random(16),
                 'dateOfBirth' => $request->dateOfBirth,
             ]);
             return response()->json([
+                "statusCode"=>201,
                 'status' => "OK",
                 'result' => $new
             ]);
+            }else {
+            
+                //update access-time
+                $check->access_time = date('m/d/Y h:i:s a', time());
+                $check->save();
+                return response()->json([
+                    "statusCode"=>200,
+                    'status' => "OK",
+                    'result' => $check
+                ]);
+            }
         }
     }
     /**
