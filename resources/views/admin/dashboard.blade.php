@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <x-layout-admin path="user-client" title="Dashboard">
 
     <div class="row">
@@ -14,3 +15,8 @@
 
     </script>
 </x-layout-admin>
+=======
+<x-layout title="Dashboard" path="dashboard">
+    <h2>Dash board</h2>
+</x-layout>
+>>>>>>> 814a31c770cfd3a39ddbd4acb2ea9e63de500532

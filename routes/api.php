@@ -128,11 +128,15 @@ Route::get('wallpaper-search/{name}', [WallpaperController::class, 'getWallpaper
 Route::get('wallpaper-category/{id_category}', [WallpaperController::class, 'getWallpaperbyCategory']); //
 
 
+Route::get('wallpaper-same-category/{id}', [WallpaperController::class, 'getWallpaperBySameCategory']);
+
 Route::get('wallpaper-latest', [WallpaperController::class, 'getWallpaperLatest']);
 Route::get('wallpaper-common', [WallpaperController::class, 'getWallpaperCommon']);
 Route::post('user-like-wallpaper/{id}',[WallpaperController::class, 'user_like_wallpaper']);
 
 Route::get('user-like-wallpapers/{anonymous_id}', [WallpaperController::class, 'list_wallpaper_liked']); // //list wallpaper user liked
+
+
 
 
 // contact

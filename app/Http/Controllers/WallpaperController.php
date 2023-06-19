@@ -6,7 +6,8 @@ use App\Models\UserLikeWallpaper;
 use App\Models\Anonymous;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-
+use Illuminate\Support\Facades\Storage;
+use App\Models\UserLikeWallpaper;
 
 class WallpaperController extends Controller
 {
@@ -15,16 +16,16 @@ class WallpaperController extends Controller
     {
         //all wallpapers
 
-        $list = Wallpaper::paginate(5);
-        $commons = Wallpaper::orderBy('id', 'desc')->orderBy('created_at', 'desc')->get();
+        $list = Wallpaper::orderBy('id', 'desc')->paginate(10);
+        $commons = Wallpaper::orderBy('id', 'asc')->orderBy('created_at', 'asc')->take(10)->get();
         return response()->json([
            'status' => 'success',
-           'statusCode' => '200',
+           'statusCode' => 200,
            'result'=> [
                 'data'=>$list,
                 'commons'=>$commons
            ],
-           //"check"=>asset($commons[0]->src)
+           "path"=>"https://wallpaper.chatx.live/wallpapers/storage/app/",
         ]);
        
     }
@@ -33,25 +34,25 @@ class WallpaperController extends Controller
         $list = Wallpaper::latest()->paginate(5);
 
         return response()->json([
-            'statusCode' => '200',
+            'statusCode' => 200,
             'status' => 'success',
             'result'=> $list
          ]);
     }
     public function getWallpaperbyCategory($id_category)
     {
-        $list = Wallpaper::where('category_id',$id_category)->paginate(5);
+        $list = Wallpaper::where('category_id',$id_category)->paginate(10);
         return response()->json([
-            'statusCode' => '200',
+            'statusCode' => 200,
             'status' => 'success',
             'result'=> $list
          ]);
     }
     public function getWallpaperCommon()
     {
-        $list = Wallpaper::orderBy('id', 'desc')->orderBy('created_at', 'desc')->paginate(10);
+        $list = Wallpaper::orderBy('id', 'asc')->orderBy('created_at', 'asc')->paginate(10);
         return response()->json([
-            'statusCode' => '200',
+            'statusCode' => 200,
             'status' => 'success',
             'result'=> $list
          ]);
@@ -59,16 +60,41 @@ class WallpaperController extends Controller
     }
     public function getWallpaperByName($name)
     {
-        $list = Wallpaper::where('name',trim($name))->orderBy('name', 'desc')->orderBy('created_at', 'desc')->paginate(10);
+        $list = Wallpaper::where('name','like','%'.trim($name).'%')->orderBy('name', 'desc')->orderBy('created_at', 'desc')->paginate(10);
 
         return response()->json([
-            'statusCode' => '200',
+            'statusCode' => 200,
             'status' => 'success',
             'result'=> $list
          ]);
         
     }
-   
+    public function getWallpaperBySameCategory($id)
+    {
+        try {
+            $item = Wallpaper::find($id);
+            $id_cate = $item->category_id;
+    
+            $list = Wallpaper::where('category_id',$id_cate)->whereNot('id',$id)->orderBy('name', 'desc')->orderBy('created_at', 'desc')->paginate(10);
+    
+            return response()->json([
+                'statusCode' => 200,
+                'status' => 'success',
+                'result'=> [
+                    "data_same"=>$list,
+                    "current"=>$item
+                ]
+             ]);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'statusCode' => 400,
+                'status'=>'error',
+                'error'=>$th
+            ]);
+        }
+        
+        
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -109,19 +135,19 @@ class WallpaperController extends Controller
                 if ($result) {
                     return [
                         "status"=>"success",
-                        'statusCode' => '200',
+                        'statusCode' => 200,
                         "result" => "Data has been save !"
                     ];
                 } else {
                     return [
-                        'statusCode' => '500',
+                        'statusCode' => 500,
                         "result" => "Operation Failed !"
                     ];
                 }
             } catch (\Throwable $th) {
                 //throw $th;
                 return response()->json([
-                    'statusCode' => '400',
+                    'statusCode' => 400,
                     'status'=>'error',
                     'error'=>$th
                 ]);
@@ -137,7 +163,9 @@ class WallpaperController extends Controller
      */
     public function show($id,$anonymous_id)
     {
+           
         $item = Wallpaper::find($id);
+<<<<<<< HEAD
 
         $checkLike = UserLikeWallpaper::where('anonymous_id',$anonymous_id)
                                     ->where('wallpaper_id',$id)->first();
@@ -145,12 +173,26 @@ class WallpaperController extends Controller
         $isLike= false;
         if($checkLike!==null){
             $isLike= false;
+=======
+        
+        $checkLike = UserLikeWallpaper::where('anonymous_id',$anonymous_id)
+                                    ->where('wallpaper_id',$id)->first();
+        $isLike= false;
+        
+        if($checkLike!==null){
+            $isLike= true;
+>>>>>>> 814a31c770cfd3a39ddbd4acb2ea9e63de500532
         }
          return response()->json([
             'statusCode' => 200,
             'status' => 'success',
+<<<<<<< HEAD
             'result'=> $item,
             'isLike'=>false
+=======
+            'isLike'=>$isLike,
+            'result'=> $item 
+>>>>>>> 814a31c770cfd3a39ddbd4acb2ea9e63de500532
          ]);
     }
 
@@ -186,29 +228,33 @@ class WallpaperController extends Controller
     }else {
         try {
                 //code...
-            $new = Wallpaper::find($id);
+            $item = Wallpaper::find($id);
+
+            $oldFIle = $item->src;
+            Storage::delete($oldFIle);
+
             $path =$request->file('src')->store('wallpapers');
-            $new->src = $path;
-            $new->name = $request->name;
-            $new->category_id = $request->category_id;
-            $result = $new->save();
+            $item->src = $path;
+            $item->name = $request->name;
+            $item->category_id = $request->category_id;
+            $result = $item->save();
 
             if ($result) {
                 return [
-                    'statusCode' => '200',
+                    'statusCode' => 200,
                     "status"=>"success",
                     "result" => "Data has been update !"
                 ];
             } else {
                 return [
-                    'statusCode' => '500',
+                    'statusCode' => 500,
                     "result" => "Operation Failed !"
                 ];
             }
         } catch (\Throwable $th) {
             //throw $th;
             return response()->json([
-                'statusCode' => '400',
+                'statusCode' => 400,
                 'status'=>'error',
                 'error'=>$th
             ]);
@@ -299,7 +345,7 @@ class WallpaperController extends Controller
         //
         try {
             $delete = Wallpaper::find($id);
-            //Storage::delete([$delete->src]);
+            Storage::delete([$delete->src]);
             $delete->delete();
             
             return response()->json([
